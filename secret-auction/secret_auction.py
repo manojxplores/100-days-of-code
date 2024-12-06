@@ -4,7 +4,6 @@ print("Welcome to the secret auction program.")
 bids = {}
 continue_auction = True
 
-
 def find_highest_bidder(auction_dict):
     highest_bid = 0
     highest_bidder = ""
@@ -14,11 +13,9 @@ def find_highest_bidder(auction_dict):
             highest_bidder = bidder
     return highest_bidder, highest_bid
 
-
 while continue_auction:
     user_name = input("What is your name?: ")
     bid_amount = int(input("What's your bid?: $"))
-
     bids[user_name] = bid_amount
 
     if input("Are there any other bidders? Type 'yes' or 'no'.") == "no":
