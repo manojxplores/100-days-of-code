@@ -34,8 +34,7 @@ resources = {
 money = 0
 
 
-def report(resource):
-    global money
+def report(resource, money):
     print(f"Water: {resource['water']}ml")
     print(f"Milk: {resource['milk']}ml")
     print(f"Coffee: {resource['coffee']}g")
@@ -50,21 +49,19 @@ def check_resources(drink, resource):
     return True
 
 
-def process_coins(drink):
-    global money
+def process_coins(cost):
     print("Please insert coins")
     quarters = int(input("How many quarters?: "))
     dimes = int(input("How many dimes?: "))
     nickels = int(input("How many nickels?: "))
     pennies = int(input("How many pennies?: "))
     total = 0.25*quarters + 0.10*dimes + 0.05*nickels + 0.01*pennies
-    if MENU[drink]["cost"] > total:
+    if cost > total:
         print("Sorry that's not enough money. Money refunded.")
-        return False
+        return False, 0
     else:
-        print(f"Here is ${round(total - MENU[drink]['cost'], 2)} in change.")
-        money += MENU[drink]['cost']
-        return True
+        print(f"Here is ${round(total - cost, 2)} in change.")
+        return True, cost
 
 
 def make_coffe(drink, resource):
@@ -78,11 +75,13 @@ should_continue = True
 while should_continue:
     user_input = input("What would you like? (espresso/latte/cappuccino):")
     if user_input == "report":
-        report(resources)
+        report(resources, money)
     elif user_input == "off":
         break
     else:
         if check_resources(user_input, resources):
-            if process_coins(user_input):
+            payment_successful, payment = process_coins(MENU[user_input]["cost"])
+            if payment_successful:
+                money += payment
                 resources = make_coffe(user_input, resources)
 
