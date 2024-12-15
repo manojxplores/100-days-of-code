@@ -13,13 +13,14 @@ class Snake:
             segment = Turtle("square")
             segment.penup()
             segment.color("white")
-            self.segments.append(segment)
             segment.goto(pos)
+            self.segments.append(segment)
 
     def add_segment(self):
         new_segment = Turtle("square")
         new_segment.penup()
         new_segment.color("white")
+        new_segment.goto(self.segments[-1].position())
         self.segments.append(new_segment)
 
     def move(self):

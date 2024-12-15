@@ -1,8 +1,8 @@
 from turtle import Turtle
 import random
 
-HEIGHT = 250
-WIDTH = 250
+HEIGHT = 260
+WIDTH = 260
 
 
 class Food(Turtle):
@@ -11,7 +11,9 @@ class Food(Turtle):
         self.shape("circle")
         self.color("Blue")
         self.penup()
-        self.shapesize(1, 1, 1)
+        self.shapesize(stretch_wid=0.5, stretch_len=0.5)
+        self.speed("fastest")
+        self.random_pos()
 
     def random_pos(self):
         x_corr = random.randint(-HEIGHT, HEIGHT)
