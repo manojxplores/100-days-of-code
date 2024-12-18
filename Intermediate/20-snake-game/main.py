@@ -20,6 +20,7 @@ screen.onkey(fun=snake.move_up, key="Up")
 screen.onkey(fun=snake.move_down, key="Down")
 screen.onkey(fun=snake.move_right, key="Right")
 screen.onkey(fun=snake.move_left, key="Left")
+# screen.onkey(fun=snake.new_game, key='Enter')
 
 game_over = False
 
@@ -34,14 +35,13 @@ while not game_over:
 
     if (snake.segments[0].xcor() > 280 or snake.segments[0].xcor() < -280 or snake.segments[0].ycor() > 280 or
             snake.segments[0].ycor() < -280):
-        score_board.game_over()
-        game_over = True
+        snake.new_game()
+        score_board.reset_score()
 
     for segment in snake.segments[1:]:
         if snake.segments[0].distance(segment) < 5:
-            score_board.game_over()
-            game_over = True
-
+            snake.new_game()
+            score_board.reset_score()
 
 screen.exitonclick()
 

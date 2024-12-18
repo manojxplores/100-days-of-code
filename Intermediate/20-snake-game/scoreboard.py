@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-FONT = ("Courier", 20, "normal")
+FONT = ("Courier", 15, "normal")
 ALIGN = "center"
 
 
@@ -12,14 +12,23 @@ class ScoreBoard(Turtle):
         self.color("white")
         self.goto((0, 270))
         self.speed("fastest")
+        with open("data.txt") as score_file:
+            self.high_score = int(score_file.read())
         self.score = 0
-        self.write(f"Score: {self.score}", align=ALIGN, font=FONT)
+        self.show_score()
 
     def update_score(self):
         self.score += 1
-        self.clear()
-        self.write(f"Score: {self.score}", align=ALIGN, font=FONT)
+        self.show_score()
 
-    def game_over(self):
-        self.goto((0, 0))
-        self.write("Game Over!", align=ALIGN, font=FONT)
+    def show_score(self):
+        self.clear()
+        self.write(f"Score: {self.score}, High Score: {self.high_score}", align=ALIGN, font=FONT)
+
+    def reset_score(self):
+        if self.score > self.high_score:
+            with open("data.txt", mode="w") as file:
+                file.write(f"{self.score}")
+            self.high_score = self.score
+        self.score = 0
+        self.show_score()
