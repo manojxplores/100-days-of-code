@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from password_generator import create_password
-
+import pyperclip
 
 window = Tk()
 window.title("Password Manager")
@@ -43,6 +43,7 @@ def confirm():
     website = website_var.get()
     email = email_var.get()
     password = passw_var.get()
+    pyperclip.copy(f"{password}")
 
     if website == "" or email == "" or password == "":
         messagebox.showinfo("Oops", "Please don't leave any fields empty!")
@@ -61,6 +62,4 @@ gen_btn.grid(row=3, column=2)
 confirm_btn = Button(text="Add", command=confirm)
 confirm_btn.grid(row=4, column=1)
 
-
-# Use pyperclip to copy the text to clipboard
 window.mainloop()
