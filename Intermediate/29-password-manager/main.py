@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from password_generator import create_password
 import pyperclip
+import json
 
 window = Tk()
 window.title("Password Manager")
@@ -15,48 +16,76 @@ canvas.grid(row=0, column=1)
 website_label = Label(text="Website: ")
 website_label.grid(row=1, column=0)
 
-website_var = StringVar()
-website_input = Entry(textvariable=website_var)
+website_input = Entry()
 website_input.grid(row=1, column=1)
 
 email_label = Label(text="Email/Username: ")
 email_label.grid(row=2, column=0)
 
-email_var = StringVar()
-email_input = Entry(textvariable=email_var)
+email_input = Entry()
+email_input.insert(0, "ash@gmail.com")
 email_input.grid(row=2, column=1)
 
 password_label = Label(text="Password: ")
 password_label.grid(row=3, column=0)
 
-passw_var = StringVar()
-password_input = Entry(textvariable=passw_var)
+password_input = Entry()
 password_input.grid(row=3, column=1)
 
 
 def gen_password():
     new_password = create_password()
-    passw_var.set(new_password)
+    password_input.insert(0, new_password)
 
 
 def confirm():
-    website = website_var.get()
-    email = email_var.get()
-    password = passw_var.get()
+    website = website_input.get()
+    email = email_input.get()
+    password = password_input.get()
     pyperclip.copy(f"{password}")
+    new_data = {
+        website: {
+            "email": email,
+            "password": password
+        }
+    }
 
-    if website == "" or email == "" or password == "":
+    if len(website) == 0 or len(password) == 0:
         messagebox.showinfo("Oops", "Please don't leave any fields empty!")
     else:
         res = messagebox.askquestion(f"{website}", f"Email:{email}\nPassword:{password}\nIs this ok?")
         if res == "yes":
-            with open("data.txt", mode='a') as file:
-                file.write(f"{website} | {email} | {password}\n")
+            try:
+                with open("data.json", mode="r") as file:
+                    data = json.load(file)
+            except FileNotFoundError:
+                with open("data.json", mode="w") as file:
+                    json.dump(new_data, file, indent=4)
+            else:
+                data.update(new_data)
+                with open("data.json", mode="w") as file:
+                    json.dump(data, file, indent=4)
+
+            website_input.delete(0, END)
+            password_input.delete(0, END)
         else:
             messagebox.showinfo("Return", "Returning to main application")
 
 
-gen_btn = Button(text="Generate Password", command=gen_password)
+def find_password():
+    with open("data.json") as file:
+        data = json.load(file)
+    website = website_input.get()
+    try:
+        messagebox.showinfo(f"{website}", f"Email:{data[website]['email']}\nPassword:{data[website]['password']}")
+    except KeyError:
+        messagebox.showinfo("Error", "No Data File Found.")
+
+
+search_btn = Button(text="Search", command=find_password, width=15)
+search_btn.grid(row=1, column=2)
+
+gen_btn = Button(text="Generate Password", command=gen_password, width=15)
 gen_btn.grid(row=3, column=2)
 
 confirm_btn = Button(text="Add", command=confirm)
