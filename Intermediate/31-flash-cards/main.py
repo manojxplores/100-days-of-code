@@ -15,7 +15,7 @@ canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0
 hero_img = canvas.create_image(400, 263, image=card_front)
 lang = canvas.create_text(400, 150, text="French", font=("Arial", 40, "italic"))
 word = canvas.create_text(400, 263, text="trove", font=("Arial", 60, "bold"))
-canvas.grid(grow=0, column=1)
+canvas.grid(row=0, column=1)
 
 
 def gen_random_word(choice):
