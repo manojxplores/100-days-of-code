@@ -57,5 +57,5 @@ if abs(change_percent) >= THRESHOLD:
         message = client.messages.create(
             body=message_body,
             from_="+15074422434",
-            to="+919392891224",
+            to="+91xxxxxxxxx",
         )
