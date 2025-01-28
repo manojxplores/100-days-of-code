@@ -1,8 +1,7 @@
 import requests
 
-# API_KEY = "rzuCnAtpbOTzJbn9DpThy2BEkWrJflAT"
-# API_SECRET = "4WvAcscGkAmaoApP"
-# # 'token_type': 'Bearer', 'access_token': '3bCU9AfWeXjJRC6Io3fMxnWD2QNe'
+# API_KEY = "{}"
+# API_SECRET = "{}"g
 # headers = {
 #     "content-type": "application/x-www-form-urlencoded"
 # }

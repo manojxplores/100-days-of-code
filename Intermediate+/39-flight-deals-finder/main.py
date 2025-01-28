@@ -5,11 +5,11 @@ from data_manager import DataManager
 FLIGHTS_ENDPOINT = "https://test.api.amadeus.com/v1"
 SHEETY_ENDPOINT = "https://api.sheety.co/d20469592a7bae833661910e0fcbe1a5/copyOfFlightDealsNew/prices"
 sheety_headers = {
-    "Authorization": "Basic YXNoOmFzaEA5NDc2"
+    "Authorization": "Basic {}"
 }
 
 flights_headers = {
-    "Authorization": "Bearer mZpZGpXlMp4YcTGh068GzDW5UCIv"
+    "Authorization": "Bearer {}"
 }
 
 data_manager = DataManager(SHEETY_ENDPOINT)
