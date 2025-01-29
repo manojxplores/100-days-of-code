@@ -10,6 +10,7 @@ flight_data = FlightData()
 notification_manager = NotificationManager()
 data = data_manager.get_data()
 
+# code to get iata_code from amadeus api
 # for city in data:
 #     print(f"Processing city: {city['city']}")
 #     airport_data = flight_data.get_iata_code(city=city["city"])

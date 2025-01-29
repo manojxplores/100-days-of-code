@@ -1,6 +1,7 @@
 import requests
 import os
 
+# Use this script to generate an access token by sending a POST request to the authorization serverg
 # API_KEY = os.environ.get("API_KEY")
 # API_SECRET = os.environ.get("API_SECRET")
 # headers = {
