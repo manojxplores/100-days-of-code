@@ -1,7 +1,8 @@
 import requests
+import os
 
-# API_KEY = "{}"
-# API_SECRET = "{}"g
+# API_KEY = os.environ.get("API_KEY")
+# API_SECRET = os.environ.get("API_SECRET")
 # headers = {
 #     "content-type": "application/x-www-form-urlencoded"
 # }
@@ -16,19 +17,21 @@ import requests
 # res.raise_for_status()
 # print(res.json())
 
+FLIGHTS_ENDPOINT = "https://test.api.amadeus.com/v1"
+flights_headers = {
+    "Authorization": "Bearer ACCESS_TOKEN_HERE"
+}
+
 
 class FlightData:
     # This class is responsible for structuring the flight data.
-    def __init__(self, url):
-        self.url = url
-
-    def get_iata_code(self, headers, city):
+    def get_iata_code(self, city):
         params = {
             "subType": "CITY",
             "keyword": city
         }
 
-        res = requests.get(f"{self.url}/reference-data/locations", headers=headers, params=params)
+        res = requests.get(f"{FLIGHTS_ENDPOINT}/reference-data/locations", headers=flights_headers, params=params)
         res.raise_for_status()
         data = res.json()["data"]
         return data
