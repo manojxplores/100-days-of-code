@@ -9,6 +9,7 @@ data_manager = DataManager()
 flight_data = FlightData()
 notification_manager = NotificationManager()
 data = data_manager.get_data()
+user_data = data_manager.get_customer_emails()
 
 # code to get iata_code from amadeus api
 # for city in data:
@@ -40,7 +41,10 @@ for delta in range((end_date - start_date).days + 1):
         if search_results["meta"]["count"] != 0:
             price = search_results['data'][0]['price']["total"]
             last_ticketing_date = search_results['data'][0]['lastTicketingDateTime']
-            notification_manager.send_message(price=price, start=result_date.date(), end=last_ticketing_date,
-                                              origin="LON", dest=city['iataCode'])
+            # notification_manager.send_message(price=price, start=result_date.date(), end=last_ticketing_date,
+            #                                   origin="LON", dest=city['iataCode'])
+            for user in user_data["users"]:
+                notification_manager.send_email(price=price, start=result_date.date(), origin="LON",
+                                                dest=city['iataCode'], user_email=user["whatIsYourEmail?"])
 
 
